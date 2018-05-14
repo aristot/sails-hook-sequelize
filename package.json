@@ -40,7 +40,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "name": "sails-hook-sequelize",
+  "name": "sails-hook-sequeliz",
   "repository": {
      "type": "git",
     "url": "https://github.com/aristot/sails-hook-sequeliz.git"
@@ -56,7 +56,6 @@
     "pretest": "cd ./test/fixtures/v0.11-app && npm i --prefix ./ && cd - && cd ./test/fixtures/v1.0-app && npm i --prefix ./ && cd -",
     "test": "node ./node_modules/.bin/mocha test/overall.test.js"
   },
-  "version": "1.1.1",
    
   "maintainers": [
     {
