@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-sequeliz",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "ORM sequelize V4 for Sails V1",
   "main": "index.js",
   "sails": {
@@ -17,7 +17,6 @@
     "continuation-local-storage": "^3.1.4",
     "sequelize": "^4.2.1"
   },
-  "description": "Sails.js V1 hook to use sequelize ORM V4",
   "devDependencies": {
    "devDependencies": {
     "mocha": "^2.2.5",
