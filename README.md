@@ -1,5 +1,5 @@
 # sails-hook-sequeliz
-Sails.js V1 hook to use sequelize ORM V4
+Sails.js V1.4 hook to use sequelize ORM V5
 
 
 
@@ -88,14 +88,14 @@ module.exports = {
     instanceMethods: {},
     hooks: {},
     scopes: {},
-    connection: 'NotDefaultModelsConnection'    // Can be omitted, so default sails.config.models.connection will be used 
+    connection: 'NotDefaultModelsConnection'    // Can be omitted, so default sails.config.models.connection will be used
   }
 };
 ```
 Modified by Raymond FEST
-to match with Sails V0.12 old version applications 
+to match with Sails V0.12 old version applications
 # Contributors
-This project was originally created by Gergely Munkácsy (@festo). 
+This project was originally created by Gergely Munkácsy (@festo).
 Now is maintained by Konstantin Burkalev (@KSDaemon).
 
 # License
