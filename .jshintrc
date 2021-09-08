@@ -1,0 +1,9 @@
+{
+    "esversion": 9,
+    "latedef": true,
+    "unused": true,
+    "quotmark": true,
+    "trailing": true,
+    "loopfunc": true,
+    "laxcomma":true
+}

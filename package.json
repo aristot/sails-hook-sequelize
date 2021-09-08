@@ -1,12 +1,11 @@
 {
   "name": "sails-hook-sequeliz",
-  "version": "1.1.2",
-  "description": "ORM sequelize V4 for Sails V1",
+  "version": "1.2.0",
+  "description": "ORM sequelize V5 for Sails V1.4",
   "main": "index.js",
   "sails": {
     "isHook": true
   },
-  
   "author": {
     "name": "Raymond FEST"
   },
@@ -14,20 +13,20 @@
     "url": "https://github.com/aristot/sails-hook-sequeliz.git/issues"
   },
   "dependencies": {
-    "continuation-local-storage": "^3.1.4",
-    "sequelize": "^4.2.1"
+    "continuation-local-storage": "^3.2.1",
+    "sequelize": "^5.22.0"
   },
   "devDependencies": {
-   "devDependencies": {
-    "mocha": "^2.2.5",
-    "pg": "^4.4.0",
-    "pg-hstore": "^2.3.2",
+    "eslint": "^7.32.0",
+    "mocha": "^9.1.1",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
     "root-require": "^0.3.1",
-    "sails-disk": "^0.10.8",
-    "should": "^7.0.2",
-    "supertest": "^1.0.1",
-    "sails": "^1.0.1",
-    "sequelize": "^4.20.0"
+    "sails": "^1.4.4",
+    "sails-disk": "^2.1.0",
+    "sequelize": "^5.22.0",
+    "should": "^13.2.3",
+    "supertest": "^6.1.6"
   },
   "directories": {
     "test": "test"
@@ -39,14 +38,9 @@
     "orm"
   ],
   "license": "MIT",
-  "main": "index.js",
-  "name": "sails-hook-sequeliz",
   "repository": {
-     "type": "git",
+    "type": "git",
     "url": "https://github.com/aristot/sails-hook-sequeliz.git"
-  },
-  "sails": {
-    "isHook": true
   },
   "scripts": {
     "cover": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha test/overall.test.js",
@@ -56,13 +50,10 @@
     "pretest": "cd ./test/fixtures/v0.11-app && npm i --prefix ./ && cd - && cd ./test/fixtures/v1.0-app && npm i --prefix ./ && cd -",
     "test": "node ./node_modules/.bin/mocha test/overall.test.js"
   },
-   
   "maintainers": [
     {
       "name": "aristot",
       "email": "raymond.fest@gmail.com"
     }
   ]
-  
-}
 }

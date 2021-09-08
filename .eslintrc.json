@@ -32,11 +32,12 @@
         "space-unary-ops": ["warn", { "words": true, "nonwords": false }]
     },
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 8,
         "sourceType": "module"
     },
+    "esversion":8,
     "env": {
-        "es6": true,
+        "es8": true,
         "commonjs": true,
         "node": true,
         "mocha": true
