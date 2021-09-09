@@ -1,10 +1,11 @@
 {
   "name": "sails-hook-sequeliz",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "ORM sequelize V5 for Sails V1.4",
   "main": "index.js",
   "sails": {
-    "isHook": true
+    "isHook": true,
+    "hookName": "sequelize"
   },
   "author": {
     "name": "Raymond FEST"
