@@ -51,7 +51,7 @@ module.exports = sails => {
         },
 
         initialize (next) {
-            if (sails.config.hooks.orm === false) {
+            if (!sails.config.hooks.orm) {
                 this.initAdapters();
                 this.initModels();
                 this.reload(next);
@@ -122,7 +122,7 @@ module.exports = sails => {
                     connections[connectionName] = new Sequelize(connection.url, connection.options);
                 } else {
                     connections[connectionName] = new Sequelize(connection.database,
-                        connection.user,
+                        connection.username,
                         connection.password,
                         connection.options);
                 }
