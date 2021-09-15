@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-sequeliz",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "ORM sequelize V6 for Sails V1.4",
   "main": "index.js",
   "sails": {
@@ -14,7 +14,7 @@
     "url": "https://github.com/aristot/sails-hook-sequeliz.git/issues"
   },
   "dependencies": {
-    "continuation-local-storage": "^3.2.1",
+    "cls-hooked": "^4.2.2",
     "sequelize": "^6.6.5"
   },
   "devDependencies": {

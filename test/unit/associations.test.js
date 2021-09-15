@@ -1,5 +1,5 @@
 // var request = require('supertest');
-const should = require('should');
+// const should = require('should');
 const fixtures = require('./../fixtures/instances.json');
 
 describe('Associations', () => {
