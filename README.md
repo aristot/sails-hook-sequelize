@@ -1,5 +1,5 @@
 # sails-hook-sequeliz
-Sails.js V1.4 hook to use sequelize ORM V5
+Sails.js V1.4 hook to use Sequelize ORM V6
 
 
 
@@ -26,29 +26,33 @@ $ npm install sails-hook-sequeliz --save
 
 Also you can set some parameters in `config/sequelize.js` to override defaults.
 
-```
+```javascript
 module.exports.sequelize = {
-    "clsNamespace": "myAppCLSNamespace",
+    "clsNamespace": "sails-sequelize",
     "exposeToGlobal": true
 };
 ```
 
 ## Connections
 
-Sequelize connection
+Sequelize connection with sqlserver 2019 Express
 
 ```javascript
-somePostgresqlServer: {
-  user: 'postgres',
-  password: '',
-  database: 'sequelize',
-  dialect: 'postgres',
-  options: {
-    dialect: 'postgres',
-    host   : 'localhost',
-    port   : 5432,
-    logging: console.log        // or specify sails log level to use ('info', 'warn', 'verbose', etc)
-  }
+asqlserver: {
+    dialect: 'mssql',
+    username: 'YourUserName',
+    password: 'YourPassword',
+    server   : 'localhost',
+    options : {
+        dialect: 'mssql',
+        host   : 'localhost',
+        port   : 1433,
+        username: 'YourUserName',
+        password: 'YourPassword',
+        database: 'YourDBName',
+        encrypt: false,
+        logging:false
+    }
 }
 ```
 
@@ -92,8 +96,10 @@ module.exports = {
   }
 };
 ```
-Modified by Raymond FEST
-to match with Sails V0.12 old version applications
+Modified by Raymond FEST 2021
+to work with Sails ^V1.4.4 new version applications
+Sequelize ^V6.6
+MsSqlServer 2019 express
 # Contributors
 This project was originally created by Gergely Munkácsy (@festo).
 Now is maintained by Konstantin Burkalev (@KSDaemon).

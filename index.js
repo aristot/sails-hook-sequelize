@@ -1,4 +1,4 @@
-// R. Fest patched version
+// R. Fest patched version 2021
 //
 module.exports = sails => {
     const Sequelize = require('sequelize');
