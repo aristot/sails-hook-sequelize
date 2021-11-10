@@ -66,20 +66,22 @@ module.exports = sails => {
         },
 
         reload (next) {
-            let connections;
             const self = this;
+            this.initConnections().then((connections) => {
+                if (sails.config[this.configKey].exposeToGlobal) {
+                    sails.log.verbose('Exposing Sequelize and Sequelize connections globally');
+                    global.SequelizeConnections = connections;
+                }
 
-            connections = this.initConnections();
-
-            if (sails.config[this.configKey].exposeToGlobal) {
-                sails.log.verbose('Exposing Sequelize and Sequelize connections globally');
-                global.SequelizeConnections = connections;
-            }
-
-           return originalLoadModels((err, models) => {
-                if (err)return next(err);
-                self.defineModels(models, connections);
-                self.migrateSchema(next, connections, models);
+                return originalLoadModels((err, models) => {
+                    if (err)return next(err);
+                    self.defineModels(models, connections);
+                    self.migrateSchema(next, connections, models);
+                });
+            }).catch((err) =>{
+                sails.log.error('A fatal error occurred while elevating the Sequelize hook during the preload phase.');
+                sails.log.error('The following message should provide a better understanding of this failure: ');
+                sails.log.error('ERROR: ', err);
             });
         },
 
@@ -90,46 +92,62 @@ module.exports = sails => {
         },
 
         initConnections () {
-            const connections = {};
-            let connection, connectionName;
+            return new Promise( (resolve,reject)=>{
+                const connections = {};
+                let connection, connectionName;
 
-            // Try to read settings from old Sails then from the new.
-            // 0.12: sails.config.connections & sails.config.models.connection
-            // 1.00: sails.config.datastores & sails.config.models.datastore
-            const datastores = sails.config.connections || sails.config.datastores;
-            const datastoreName = sails.config.models.connection || sails.config.models.datastore || 'default';
+                // Try to read settings from old Sails then from the new.
+                // 0.12: sails.config.connections & sails.config.models.connection
+                // 1.00: sails.config.datastores & sails.config.models.datastore
+                const datastores = sails.config.connections || sails.config.datastores;
+                const datastoreName = sails.config.models.connection || sails.config.models.datastore || 'default';
 
-            sails.log.verbose('Using default connection named ' + datastoreName);
-            if (!datastores.hasOwnProperty(datastoreName)) {
-                throw new Error('Default connection \'' + datastoreName + '\' not found in config/connections');
-            }
-            sails.log.silly('datastores --->', datastores);
-            for (connectionName in datastores) {
-                connection = datastores[connectionName];
-                // Skip waterline connections
-                if (connection.adapter)continue;
-                // R. Fest Patch 0.12 compatibility we assume db connection contain dialect property
-                // otherwise ( i.e; : local: { adapter: 'sails-disk' }) we pass through
-                if (!connection.dialect)continue;
-                if (!connection.options)connection.options = {};
-
-                // If custom log function is specified, use it for SQL logging or use sails logger of defined level
-                if (typeof connection.options.logging === 'string' && connection.options.logging !== '') {
-                    connection.options.logging = sails.log[connection.options.logging];
+                sails.log.verbose('Using default connection named ' + datastoreName);
+                if (!datastores.hasOwnProperty(datastoreName)) {
+                    throw new Error('Default connection \'' + datastoreName + '\' not found in config/connections');
                 }
+                sails.log.silly('datastores --->', datastores);
+                let preProcess = null;
+                for (connectionName in datastores) {
+                    connection = datastores[connectionName];
+                    if(typeof connection === 'function'){
+                        preProcess = connection;
+                        continue;
+                    }
+                    // Skip waterline connections
+                    if (connection.adapter)continue;
+                    // R. Fest Patch 0.12 compatibility we assume db connection contain dialect property
+                    // otherwise ( i.e; : local: { adapter: 'sails-disk' }) we pass through
+                    if (!connection.dialect)continue;
+                    if (!connection.options)connection.options = {};
 
-                if (connection.url) {
-                    connections[connectionName] = new Sequelize(connection.url, connection.options);
-                } else {
-                    connections[connectionName] = new Sequelize(connection.database,
-                        connection.username,
-                        connection.password,
-                        connection.options);
+                    // If custom log function is specified, use it for SQL logging or use sails logger of defined level
+                    if (typeof connection.options.logging === 'string' && connection.options.logging !== '') {
+                        connection.options.logging = sails.log[connection.options.logging];
+                    }
+                    break;
                 }
-            }
-            global.sequelize = connections[datastoreName];
+                // Take care this only works with ONE connection //
+                sails.log.silly('Hook sequel connection :', connection);
+                //if(preProcess){
+                preProcess(connection).then((status) =>{
+                    sails.log.silly('Hook sequel status :', status);
+                    //}
+                    if (connection.url) {
+                        connections[connectionName] = new Sequelize(connection.url, connection.options);
+                    } else {
+                        connections[connectionName] = new Sequelize(connection.database,
+                            connection.username,
+                            connection.password,
+                            connection.options);
+                    }
+                    global.sequelize = connections[datastoreName];
 
-            return connections;
+                    resolve(connections);
+                }).catch((err) =>{
+                    reject(err);
+                });
+            });
         },
 
         initModels () {
