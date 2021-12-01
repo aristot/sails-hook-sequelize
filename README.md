@@ -1,5 +1,5 @@
 # sails-hook-sequeliz
-Sails.js V1.4 hook to use Sequelize ORM V6
+Sails.js V1.5 hook to use Sequelize ORM V6
 New version adding automatic datadbase settup for sqlserver (experimental)
 
 
@@ -24,6 +24,49 @@ $ npm install sails-hook-sequeliz --save
   "hooks": {
     "orm": false,
     "pubsub": false
+  }
+}
+```
+## Package.json
+
+Include in package.json git reference to this package (see following example)
+
+```javascript
+{
+  "name": "test",
+  "private": true,
+  "version": "0.0.0",
+  "description": "application",
+  "keywords": [],
+  "dependencies": {
+    "@babel/preset-env": "7.15.6",
+
+    "sails": "^1.5.0",
+    "sails-disk": "~2.1.0",
+    "sails-hook-cron": "^3.2.0",
+    "sails-hook-grunt": "^5.0.0",
+    "sails-hook-sequelize": "git://github.com/aristot/sails-hook-sequeliz",
+    "sails-hook-sequeliz-blueprints": "git://github.com/aristot/sails-hook-sequeliz-blueprints",
+    "sails-hook-sockets": "2.0.1",
+    "sails-hook-validation": "^0.4.7",
+    "sequelize": "^6.6.5",
+    "sequelize-cli": "^6.2.0",
+    "tedious": "^12.2.0",
+  },
+  "repository": {
+
+  },
+
+  "devDependencies": {
+  },
+  "config": {
+    "grunt": "./node_modules/sails/node_modules/.bin/grunt"
+  },
+  "main": "app.js",
+  "license": "MIT",
+  "engines": {
+    "node": "~14.17.x",
+    "npm": "~7.20.x"
   }
 }
 ```
