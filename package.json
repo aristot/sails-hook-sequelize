@@ -11,7 +11,7 @@
     "name": "Raymond FEST"
   },
   "bugs": {
-    "url": "https://github.com/aristot/sails-hook-sequeliz.git/issues"
+    "url": "https://github.com/aristot/sails-hook-sequelize.git/issues"
   },
   "dependencies": {
     "cls-hooked": "^4.2.2",
@@ -30,7 +30,7 @@
   "directories": {
     "test": "test"
   },
-  "homepage": "https://github.com/aristot/sails-hook-sequeliz",
+  "homepage": "https://github.com/aristot/sails-hook-sequelize",
   "keywords": [
     "sails",
     "sequelize",
@@ -39,7 +39,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aristot/sails-hook-sequeliz.git"
+    "url": "https://github.com/aristot/sails-hook-sequelize.git"
   },
   "scripts": {
     "cover": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha test/overall.test.js",
